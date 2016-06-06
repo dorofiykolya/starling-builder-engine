@@ -127,9 +127,22 @@ package starlingbuilder.engine
                     break;
                 case "XML":
                     data = _assetMediator.getXml(param.name);
+					
+					if (data == null)
+					{
+						if (param.constructorParams is Array)
+						{
+							if (param.constructorParams.length != 0)
+							{
+								data = XML(param.constructorParams[0].value);
+							}
+						}
+					}
 
                     if (data == null)
-                        throw new Error("XML " + param.name + " not found");
+					{
+						throw new Error("XML " + param.name + " not found");
+					}
 
                     return data;
                     break;
